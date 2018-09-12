@@ -288,7 +288,7 @@ def bot_main(function,week=None):
     slack_bot = SlackBot(webhook_url)
     league = League(league_id, year)
 
-    test = True
+    test = False
     if test:
         print(get_matchups(league))
         print(get_scoreboard(league))
