@@ -1,17 +1,14 @@
 Shoutout to /u/rbart65 on reddit and rbarton65 on github for creating the original version of the chatbot and the ESPN FF API
-Further shoutouts to dtcarls for building the GroupMe bot, and to uberfastman for building fantasy-football-metrics, which helped lay the groundwork for this
+Further shoutouts to dtcarls for building the GroupMe bot, and to uberfastman for building fantasy-football-metrics, which helped lay the groundwork for this.
 
-This is a major work in progress, but it works. I'm a Python newbie, so very open to suggestions on improving things.
+This is a major work in progress, but it works as-is. YMMV. I'm a Python newbie, so very open to suggestions on improving things.
 
-I have not tested the Docker stuff, and have not tested Slack, though it should work as-is. For now, I only know that this works in a Python 3 virtualenv. To make it work, set up your virtualenv, set the critical environment variables ('BOT_ID', 'LEAGUE_ID', 'YEAR') and execute 'python ff_bot.py'.
+I have not tested the Docker stuff, and have not tested Slack, though it should be close to working as-is. 
+
+For now, I only know that this works in a Python 3 virtualenv. To make it work, register your app with Yahoo and add the consumer key and secret to authentication/private.txt (see the sample). Next, set up your virtualenv, and run 'python first_time_token.py' (this is only necessary the first time, to get your OAuth tokens). Finally, set your league environment variables ('BOT_ID', 'LEAGUE_ID', 'YEAR') and execute 'python ff_bot.py'.
 
 To get the callback bot working, make sure you have gunicorn installed (pip install gunicorn) and execute 'gunicorn -w 4 callbackbot:app -b <server>:<port>
 '
-
-[![Build Status](https://travis-ci.org/dtcarls/ff_bot.svg?branch=master)](https://travis-ci.org/dtcarls/ff_bot)
-[![Come join the chat](https://badges.gitter.im/dtcarls/Lobby.svg)](https://gitter.im/dtcarls/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-[![Test Coverage Status](https://coveralls.io/repos/github/dtcarls/ff_bot/badge.svg?branch=master)](https://coveralls.io/github/dtcarls/ff_bot?branch=master)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d8506396005d48d1a52dee114f2c05ae)](https://www.codacy.com/app/dtcarls/ff_bot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dtcarls/ff_bot&amp;utm_campaign=Badge_Grade)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
@@ -27,8 +24,8 @@ Yahoo Fantasy Football information to a GroupMe or Slack chat room.
 - Matchups - thu - 19:30 (Just upcoming matchups)
 - Close Scores - mon - 18:30 (Games that are within 16 points of eachother to keep an eye on during the Monday night game)
 - Trophies- tue - 7:30 (High score, low score, biggest win, closest win)
-- Scoreboard - fri,mon,tue - 7:30 (Current ESPN fantasy scoreboard)
-- Scoreboard - sun - 16:30, 20:30 (Current ESPN fantasy scoreboard)
+- Scoreboard - fri,mon,tue - 7:30 (Current Yahoo fantasy scoreboard)
+- Scoreboard - sun - 16:30, 20:30 (Current Yahoo fantasy scoreboard)
 
 ## Getting Started
 
@@ -38,7 +35,7 @@ on your local machine for development and testing purposes.
 ### Installing
 With Docker:
 ```bash
-git clone https://github.com/dtcarls/ff_bot
+git clone https://github.com/softsign/yahoo_ff_bot
 
 cd ff_bot
 
@@ -48,9 +45,9 @@ docker build -t ff_bot .
 Without Docker:
 
 ```bash
-git clone https://github.com/dtcarls/ff_bot
+git clone https://github.com/softsign/yahoo_ff_bot
 
-cd ff_bot
+cd yahoo_ff_bot
 
 python3 setup.py install
 ```
@@ -58,16 +55,16 @@ python3 setup.py install
 
 ## Basic Usage
 
-This gives an overview of all the features of `ff_bot`
+This gives an overview of all the features of `yahoo_ff_bot`
 
 ### Environment Variables
 
 - BOT_ID: This is your Bot ID from the GroupMe developers page (REQUIRED IF USING GROUPME)
 - WEBHOOK_URL: This is your Webhook URL from the Slack App page (REQUIRED IF USING SLACK)
-- LEAGUE_ID: This is your ESPN league id (REQUIRED)
+- LEAGUE_ID: This is your Yahoo league id (REQUIRED)
 - START_DATE: This is when the bot will start paying attention and sending messages to GroupMe or Slack. (2018-09-05 by default)
 - END_DATE: This is when the bot will stop paying attention and stop sending messages to GroupMe or Slack. (2018-12-26 by default)
-- LEAGUE_YEAR: ESPN League year to look at (2018 by default)
+- LEAGUE_YEAR: Yahoo League year to look at (2018 by default)
 - TIMEZONE: The timezone that the messages will look to send in. (America/New_York by default)
 - INIT_MSG: The message that the bot will say when it is started (“Hai” by default, can be blank for no message)
 
@@ -78,7 +75,7 @@ Use BOT_ID if using Groupme, and WEBHOOK_URL if using Slack (or both to get mess
 ```bash
 >>> export BOT_ID=[enter your GroupMe Bot ID]
 >>> export WEBHOOK_URL=[enter your Webhook URL]
->>> export LEAGUE_ID=[enter ESPN league ID]
+>>> export LEAGUE_ID=[enter Yahoo league ID]
 >>> export LEAGUE_YEAR=[enter league year]
 >>> cd ff_bot
 >>> docker run --rm=True \
@@ -95,19 +92,10 @@ Use BOT_ID if using Groupme, and WEBHOOK_URL if using Slack (or both to get mess
 ```bash
 >>> export BOT_ID=[enter your GroupMe Bot ID]
 >>> export WEBHOOK_URL=[enter your Webhook URL]
->>> export LEAGUE_ID=[enter ESPN league ID]
+>>> export LEAGUE_ID=[enter Yahoo league ID]
 >>> export LEAGUE_YEAR=[enter league year]
 >>> cd ff_bot
->>> python3 ff_bot/ff_bot.py
-```
-
-## Running the tests
-
-Automated tests for this package are included in the `tests` directory. After installation,
-you can run these tests by changing the directory to the `ff_bot` directory and running the following:
-
-```python3
-python3 setup.py test
+>>> python3 ff_bot.py
 ```
 
 ## Setting up GroupMe or Slack, and deploying app in Heroku
@@ -134,6 +122,8 @@ Create your bot. GroupMe does a good job explaining what each thing is.
 
 ![](https://i.imgur.com/DQUcuuI.png)
 
+**If you plan to run the callback bot, DO SPECIFY THE URL.**
+ 
 After you have created your bot you will see something similar to this. Click "Edit"
 
 ![](https://i.imgur.com/Z9vwKKt.png)
@@ -199,10 +189,10 @@ Note: App will restart when you change any variable so your chat room may be sem
 
 - BOT_ID: This is your Bot ID from the GroupMe developers page (REQUIRED IF USING GROUPME)
 - WEBHOOK_URL: This is your Webhook URL from the Slack App page (REQUIRED IF USING SLACK)
-- LEAGUE_ID: This is your ESPN league id (REQUIRED)
+- LEAGUE_ID: This is your Yahoo league id (REQUIRED)
 - START_DATE: This is when the bot will start paying attention and sending messages to GroupMe or Slack. (2018-09-05 by default)
 - END_DATE: This is when the bot will stop paying attention and stop sending messages to GroupMe or Slack. (2018-12-26 by default)
-- LEAGUE_YEAR: ESPN League year to look at (2018 by default)
+- LEAGUE_YEAR: Yahoo League year to look at (2018 by default)
 - TIMEZONE: The timezone that the messages will look to send in. (America/New_York by default)
 - INIT_MSG: The message that the bot will say when it is started (“Hai” by default, can be blank for no message)
 
@@ -210,12 +200,6 @@ After you have setup your variables you will need to turn it on. Navigate to the
 You should see something like below. Click the pencil on the right and toggle the buton so it is blue like depicted and click "Confirm."
 ![](https://i.imgur.com/J6bpV2I.png)
 
-You're done! You now have a fully featured GroupMe/Slack chat bot for ESPN leagues! If you have an INIT_MSG you will see it exclaimed in your GroupMe or Slack chat room.
+You're done! You now have a fully featured GroupMe/Slack chat bot for Yahoo leagues! If you have an INIT_MSG you will see it exclaimed in your GroupMe or Slack chat room.
 
-Unfortunately to do auto deploys of the latest version you need admin access to the repository on git. You can check for updates on the github page (https://github.com/dtcarls/ff_bot/commits/master) and click the deploy button again; however, this will deploy a new instance and the variables will need to be edited again.
-
-Like the bot? Consider making a donation
-------
-* BTC: 3C8SEcDh52iDSYQY55kwELrNWoQRMkXLCR
-* ETH: 0xA098c4e8CC1c12422d5B34d6454133190CDdCAC3
-* LTC: MHx74YbrHE592ePBbdQ4cL9ZQC15xaAjtM
+Unfortunately to do auto deploys of the latest version you need admin access to the repository on git. You can check for updates on the github page (https://github.com/softsign/yahoo_ff_bot/commits/master) and click the deploy button again; however, this will deploy a new instance and the variables will need to be edited again.
