@@ -1,34 +1,30 @@
 {
   "name": "Fantasy Football Chat Bot",
-  "description": "ESPN FF GroupMe Chat Bot.",
+  "description": "Yahoo FF GroupMe Chat Bot.",
   "keywords": [
     "fantasy football",
-    "espn",
+    "yahoo",
     "groupme",
     "chat bot",
     "ff"
   ],
-  "website": "https://github.com/dtcarls/ff_bot/",
-  "repository": "https://github.com/dtcarls/ff_bot/",
+  "website": "https://github.com/horbal/yahoo_ff_bot/",
+  "repository": "https://github.com/horbal/yahoo_ff_bot/",
   "env": {
     "BOT_ID": {
       "description": "GroupMe Bot ID",
       "value": "1"
     },
-    "SLACK_WEBHOOK_URL": {
+    "WEBHOOK_URL": {
       "description": "Slack Webhook URL",
       "value": "1"
     },
-    "DISCORD_WEBHOOK_URL": {
-      "description": "Discord Webhook URL",
-      "value": "1"
-    },
     "LEAGUE_ID": {
-      "description": "ESPN League ID",
+      "description": "Yahoo League ID",
       "value": "1"
     },
     "LEAGUE_YEAR": {
-      "description": "ESPN League Year",
+      "description": "Yahoo League Year",
       "value": "2018"
     },
     "TIMEZONE": {

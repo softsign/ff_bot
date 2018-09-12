@@ -4,3 +4,7 @@ exports.sh
 run
 build/
 dist/
+authentication/oauth_token
+authentication/private.txt
+.eggs/
+logs/

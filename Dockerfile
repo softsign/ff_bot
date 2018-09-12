@@ -6,4 +6,4 @@ WORKDIR /usr/src/ff_bot
 RUN python3 setup.py install
 
 # Launch app
-CMD ["python3", "ff_bot/ff_bot.py"]
+CMD ["python3", "ff_bot.py"]
