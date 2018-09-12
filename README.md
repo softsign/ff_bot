@@ -1,4 +1,12 @@
 Shoutout to /u/rbart65 on reddit and rbarton65 on github for creating the original version of the chatbot and the ESPN FF API
+Further shoutouts to dtcarls for building the GroupMe bot, and to uberfastman for building fantasy-football-metrics, which helped lay the groundwork for this
+
+This is a major work in progress, but it works. I'm a Python newbie, so very open to suggestions on improving things.
+
+I have not tested the Docker stuff, and have not tested Slack, though it should work as-is. For now, I only know that this works in a Python 3 virtualenv. To make it work, set up your virtualenv, set the critical environment variables ('BOT_ID', 'LEAGUE_ID', 'YEAR') and execute 'python ff_boy.py'.
+
+To get the callback bot working, make sure you have gunicorn installed (pip install gunicorn) and execute 'gunicorn -w 4 callbackbot:app -b <server>:<port>
+'
 
 [![Build Status](https://travis-ci.org/dtcarls/ff_bot.svg?branch=master)](https://travis-ci.org/dtcarls/ff_bot)
 [![Come join the chat](https://badges.gitter.im/dtcarls/Lobby.svg)](https://gitter.im/dtcarls/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
@@ -7,10 +15,10 @@ Shoutout to /u/rbart65 on reddit and rbarton65 on github for creating the origin
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-# ESPN Fantasy Football GroupMe Bot
+# Yahoo Fantasy Football GroupMe Bot
 
 This package creates a docker container that runs a GroupMe or Slack chat bot to send
-ESPN Fantasy Football information to a GroupMe or Slack chat room.
+Yahoo Fantasy Football information to a GroupMe or Slack chat room.
 
 **What does this do?**
 
