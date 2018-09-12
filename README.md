@@ -3,7 +3,7 @@ Further shoutouts to dtcarls for building the GroupMe bot, and to uberfastman fo
 
 This is a major work in progress, but it works. I'm a Python newbie, so very open to suggestions on improving things.
 
-I have not tested the Docker stuff, and have not tested Slack, though it should work as-is. For now, I only know that this works in a Python 3 virtualenv. To make it work, set up your virtualenv, set the critical environment variables ('BOT_ID', 'LEAGUE_ID', 'YEAR') and execute 'python ff_boy.py'.
+I have not tested the Docker stuff, and have not tested Slack, though it should work as-is. For now, I only know that this works in a Python 3 virtualenv. To make it work, set up your virtualenv, set the critical environment variables ('BOT_ID', 'LEAGUE_ID', 'YEAR') and execute 'python ff_bot.py'.
 
 To get the callback bot working, make sure you have gunicorn installed (pip install gunicorn) and execute 'gunicorn -w 4 callbackbot:app -b <server>:<port>
 '
