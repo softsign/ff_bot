@@ -108,7 +108,7 @@ def get_scoreboard(league, fweek=None):
         week=fweek
 
     matchups = league.scoreboard(week)
-    score = ['%s %.2f - %.2f %s' % (i.home_team.team_name, i.home_score,
+    score = ['\n%.2f - %s\n%.2f - %s' % (i.home_score, i.home_team.team_name,
              i.away_score, i.away_team.team_name) for i in matchups
              if i.away_team]
     text = ['Score Update'] + score
@@ -120,7 +120,7 @@ def get_standings(league):
     standings = league.standings()
     ranks = ['%s: %s' % (k,v) for k,v in standings]
 
-    text = 'This Week\'s Point Standings\n\n' + '\n'.join(ranks)
+    text = 'Overall Point Standings\n\n' + '\n'.join(ranks)
 
     best = standings[0][0]
 
@@ -159,7 +159,7 @@ def get_close_scores(league, fweek=None):
         if i.away_team:
             diffScore = i.away_score - i.home_score
             if -16 < diffScore < 16:
-                score += ['%s %.2f - %.2f %s' % (i.home_team.team_name, i.home_score,
+                score += ['\n%.2f - %s\n%.2f - %s' % (i.home_score, i.home_team.team_name,
                         i.away_score, i.away_team.team_name)]
     if not score:
         score = ['None']
@@ -240,7 +240,7 @@ def get_trophies(league, fweek=None):
     close_score_str = ['Lowest Margin of Victory:\n%s barely beat %s by a margin of %.2f\n' % (close_winner, close_loser, closest_score)]
     blowout_str = ['Highest Margin of Victory:\n%s blown out by %s by a margin of %.2f' % (blown_out_team_name, ownerer_team_name, biggest_blowout)]
 
-    text = ['Trophies of the week:\n'] + low_score_str + high_score_str + close_score_str + blowout_str
+    text = ['Trophies of the Week\n'] + low_score_str + high_score_str + close_score_str + blowout_str
     a = '\n'.join(text)
 
     a += '\n\n' + random_phrase()[0]
