@@ -39,20 +39,8 @@ class League(object):
         token_store = FileTokenStore(_cache_dir, secret="sasfasdfdasfdaf")
         stored_token = token_store.get("foo")
 
-        #TODO turn this into a separate utility to get token first time
-
         if not stored_token:
-            request_token, auth_url = self.y3.get_token_and_auth_url()
-
-            if command_line_only:
-                print("Visit url %s and get a verifier string" % auth_url)
-            else:
-                webbrowser.open(auth_url.decode('utf-8'))
-
-            verifier = input("Enter the code: ")
-            self.token = self.y3.get_access_token(request_token, verifier)
-            token_store.set("foo", self.token)
-
+            raise Exception("Yahoo oauth_token missing. Run 'python first_time_token.py' one time to authenticate first time with Yahoo.")
         else:
             print("Verifying token...")
             self.token = self.y3.check_token(stored_token)
