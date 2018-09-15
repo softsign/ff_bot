@@ -69,8 +69,10 @@ def pranks_week(league):
         #Iterate through the first team's scores until you reach a week with 0 points scored
         for o in first_team.scores:
             if o == 0:
+                '''
                 if count != 1:
                      count = count - 1
+                '''
                 break
             else:
                 count = count + 1
@@ -175,7 +177,7 @@ def get_power_rankings(league):
 
     ranks = ['%s: %.2f' % (k, v) for k, v in pranks]
     '''
-    text = 'This Week\'s Point Standings\n\n' + '\n'.join(ranks)
+    text = 'Standings\n\n' + '\n'.join(ranks)
     
     score = ['%s - %s' % (i[0], i[1].team_name) for i in pranks
              if i]
@@ -288,7 +290,7 @@ def bot_main(function,week=None):
     slack_bot = SlackBot(webhook_url)
     league = League(league_id, year)
 
-    test = False
+    test = True
     if test:
         print(get_matchups(league))
         print(get_scoreboard(league))
@@ -303,19 +305,19 @@ def bot_main(function,week=None):
         slack_bot.send_message("test complete")
 
     if function=="get_matchups":
-        text = get_matchups(league,week)
+        text = get_matchups(league)
         bot.send_message(text)
         slack_bot.send_message(text)
     elif function=="get_scoreboard":
-        text = get_scoreboard(league,week)
+        text = get_scoreboard(league)
         bot.send_message(text)
         slack_bot.send_message(text)
     elif function=="get_scoreboard_short":
-        text = get_scoreboard_short(league,week)
+        text = get_scoreboard_short(league)
         bot.send_message(text)
         slack_bot.send_message(text)
     elif function=="get_close_scores":
-        text = get_close_scores(league,week)
+        text = get_close_scores(league)
         bot.send_message(text)
         slack_bot.send_message(text)
     elif function=="get_power_rankings":
@@ -323,7 +325,7 @@ def bot_main(function,week=None):
         bot.send_message(text)
         slack_bot.send_message(text)
     elif function == "get_luck":
-        text = get_luck(league, week)
+        text = get_luck(league)
         bot.send_message(text)
         slack_bot.send_message(text)
     elif function=="get_standings":
@@ -331,7 +333,7 @@ def bot_main(function,week=None):
         bot.send_message(text)
         slack_bot.send_message(text)
     elif function=="get_trophies":
-        text = get_trophies(league,week)
+        text = get_trophies(league)
         bot.send_message(text)
         slack_bot.send_message(text)
     elif function=="get_final":
@@ -372,7 +374,7 @@ if __name__ == '__main__':
     except KeyError:
         myTimezone='America/New_York'
 
-    bot_main("init")
+    #bot_main("init")
 
     sched = BlockingScheduler(job_defaults={'misfire_grace_time': 15*60})
 
@@ -387,7 +389,7 @@ if __name__ == '__main__':
         day_of_week='tue', hour=11, minute=30, start_date=ff_start_date, end_date=ff_end_date,
         timezone=myTimezone, replace_existing=True)
     sched.add_job(bot_main, 'cron', ['get_matchups'], id='matchups',
-        day_of_week='thu', hour=19, minute=30, start_date=ff_start_date, end_date=ff_end_date,
+        day_of_week='thu', hour=20, minute=45, start_date=ff_start_date, end_date=ff_end_date,
         timezone=myTimezone, replace_existing=True)
     sched.add_job(bot_main, 'cron', ['get_close_scores'], id='close_scores',
         day_of_week='mon', hour=18, minute=30, start_date=ff_start_date, end_date=ff_end_date,
