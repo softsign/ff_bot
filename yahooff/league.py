@@ -390,8 +390,10 @@ class League(object):
         # Iterate through the first team's scores until you reach a week with 0 points scored
         for o in first_team.scores:
             if o == 0:
+                '''
                 if count != 1:
                     count = count - 1
+                '''
                 break
             else:
                 count = count + 1

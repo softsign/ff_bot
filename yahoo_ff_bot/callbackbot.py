@@ -14,8 +14,7 @@ gunicorn -w 4 callbackbot:app -b 1.1.1.1:50000
 
 import os
 import sys
-import json
-import ff_bot
+from yahoo_ff_bot import ff_bot
 from yahooff import League
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen

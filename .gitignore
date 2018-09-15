@@ -8,3 +8,5 @@ authentication/oauth_token
 authentication/private.txt
 .eggs/
 logs/
+.DS_Store
+.idea/

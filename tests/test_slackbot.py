@@ -4,7 +4,7 @@ import unittest
 import requests_mock
 
 
-from ff_bot.ff_bot import (SlackBot, SlackException, )
+from yahoo_ff_bot.ff_bot import (SlackBot, SlackException, )
 
 
 class SlackTestCase(unittest.TestCase):

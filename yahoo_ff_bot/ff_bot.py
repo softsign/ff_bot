@@ -374,7 +374,7 @@ if __name__ == '__main__':
     except KeyError:
         myTimezone='America/New_York'
 
-    #bot_main("init")
+    bot_main("init")
 
     sched = BlockingScheduler(job_defaults={'misfire_grace_time': 15*60})
 
