@@ -4,9 +4,11 @@ exports.sh
 run
 build/
 dist/
-authentication/oauth_token
-authentication/private.txt
+.oauth_token_cache/
+yahoo_ff_bot/.oauth_token_cache
 .eggs/
 logs/
 .DS_Store
 .idea/
+tests/liveenv.sh
+tests/testenv.sh

@@ -48,32 +48,37 @@ def webhook():
     except KeyError:
         year = 2018
 
+    try:
+        yahoo_consumer_key = os.environ["YAHOO_CONSUMER_KEY"]
+    except KeyError:
+        yahoo_consumer_key = 1
+
+    try:
+        yahoo_consumer_secret = os.environ["YAHOO_CONSUMER_SECRET"]
+    except KeyError:
+        yahoo_consumer_secret = 1
+
+    league = League(league_id, year, yahoo_consumer_key, yahoo_consumer_secret)
+
     if data['text'] == '!scores':
-        league = League(league_id, year)
         text = ff_bot.get_scoreboard(league)
         send_message(text)
     elif data['text'] == '!matchups':
-        league = League(league_id, year)
         text = ff_bot.get_matchups(league)
         send_message(text)
     elif data['text'] == '!close':
-        league = League(league_id, year)
         text = ff_bot.get_close_scores(league)
         send_message(text)
     elif data['text'] == '!power':
-        league = League(league_id, year)
         text = ff_bot.get_power_rankings(league)
         send_message(text)
     elif data['text'] == '!luck':
-        league = League(league_id, year)
         text = ff_bot.get_luck(league)
         send_message(text)
     elif data['text'] == '!standings':
-        league = League(league_id, year)
         text = ff_bot.get_standings(league)
         send_message(text)
     elif data['text'] == '!trophies':
-        league = League(league_id, year)
         text = ff_bot.get_trophies(league)
         send_message(text)
     elif data['text'] == '!help':

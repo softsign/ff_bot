@@ -19,24 +19,31 @@ from yql3 import *
 from yql3.storage import FileTokenStore
 
 class League(object):
-    '''Creates a League instance for Yahoo league'''
-    def __init__(self, league_id, year):
+    '''Creates a League instance for Yahoo league
+
+    If you don't have a Yahoo consumer key/secret, create one at https://developer.yahoo.com/apps/create/
+    '''
+    def __init__(self, league_id, year, yahoo_consumer_key, yahoo_consumer_secret):
 
         self.league_id = league_id
+        self.yahoo_consumer_key = yahoo_consumer_key
+        self.yahoo_consumer_secret = yahoo_consumer_secret
 
+        '''
         # yahoo oauth api (consumer) key and secret
         with open("./authentication/private.txt", "r") as auth_file:
             auth_data = auth_file.read().split("\n")
         consumer_key = auth_data[0]
         consumer_secret = auth_data[1]
+        '''
 
         # yahoo oauth process
-        self.y3 = ThreeLegged(consumer_key, consumer_secret)
-        _cache_dir = "./authentication/oauth_token"
+        self.y3 = ThreeLegged(self.yahoo_consumer_key, self.yahoo_consumer_secret)
+        _cache_dir = "./.oauth_token_cache"
         if not os.access(_cache_dir, os.R_OK):
             os.mkdir(_cache_dir)
 
-        token_store = FileTokenStore(_cache_dir, secret="sasfasdfdasfdaf")
+        token_store = FileTokenStore(_cache_dir, secret="sasfasdfdasfdafs")
         stored_token = token_store.get("foo")
 
         if not stored_token:

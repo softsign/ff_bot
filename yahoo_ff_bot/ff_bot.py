@@ -279,18 +279,31 @@ def bot_main(function,week=None):
     except KeyError:
         webhook_url = 1
 
-    league_id = os.environ["LEAGUE_ID"]
+    try:
+        league_id = os.environ["LEAGUE_ID"]
+    except KeyError:
+        league_id = 1
 
     try:
         year = os.environ["LEAGUE_YEAR"]
     except KeyError:
-        year=2018
+        year = 2018
+
+    try:
+        yahoo_consumer_key = os.environ["YAHOO_CONSUMER_KEY"]
+    except KeyError:
+        yahoo_consumer_key = 1
+
+    try:
+        yahoo_consumer_secret = os.environ["YAHOO_CONSUMER_SECRET"]
+    except KeyError:
+        yahoo_consumer_secret = 1
 
     bot = GroupMeBot(bot_id)
     slack_bot = SlackBot(webhook_url)
-    league = League(league_id, year)
+    league = League(league_id, year, yahoo_consumer_key, yahoo_consumer_secret)
 
-    test = True
+    test = False
     if test:
         print(get_matchups(league))
         print(get_scoreboard(league))
@@ -374,7 +387,7 @@ if __name__ == '__main__':
     except KeyError:
         myTimezone='America/New_York'
 
-    bot_main("init")
+    #bot_main("init")
 
     sched = BlockingScheduler(job_defaults={'misfire_grace_time': 15*60})
 
@@ -405,4 +418,3 @@ if __name__ == '__main__':
         timezone=myTimezone, replace_existing=True)
 
     sched.start()
-
