@@ -58,31 +58,25 @@ def webhook():
     except KeyError:
         yahoo_consumer_secret = 1
 
-    league = League(league_id, year, yahoo_consumer_key, yahoo_consumer_secret)
+    if data['text'][:1] == '!':
+        league = League(league_id, year, yahoo_consumer_key, yahoo_consumer_secret)
+        if data['text'] == '!scores':
+            text = ff_bot.get_scoreboard(league)
+        elif data['text'] == '!matchups':
+            text = ff_bot.get_matchups(league)
+        elif data['text'] == '!close':
+            text = ff_bot.get_close_scores(league)
+        elif data['text'] == '!power':
+            text = ff_bot.get_power_rankings(league)
+        elif data['text'] == '!luck':
+            text = ff_bot.get_luck(league)
+        elif data['text'] == '!standings':
+            text = ff_bot.get_standings(league)
+        elif data['text'] == '!trophies':
+            text = ff_bot.get_trophies(league)
+        elif data['text'] == '!help':
+            text = "I understand the following commands: !scores, !matchups, !close, !power, !luck, !standings, !trophies"
 
-    if data['text'] == '!scores':
-        text = ff_bot.get_scoreboard(league)
-        send_message(text)
-    elif data['text'] == '!matchups':
-        text = ff_bot.get_matchups(league)
-        send_message(text)
-    elif data['text'] == '!close':
-        text = ff_bot.get_close_scores(league)
-        send_message(text)
-    elif data['text'] == '!power':
-        text = ff_bot.get_power_rankings(league)
-        send_message(text)
-    elif data['text'] == '!luck':
-        text = ff_bot.get_luck(league)
-        send_message(text)
-    elif data['text'] == '!standings':
-        text = ff_bot.get_standings(league)
-        send_message(text)
-    elif data['text'] == '!trophies':
-        text = ff_bot.get_trophies(league)
-        send_message(text)
-    elif data['text'] == '!help':
-        text = "I understand the following commands: !scores, !matchups, !close, !power, !luck, !standings, !trophies"
         send_message(text)
 
     return "ok", 200

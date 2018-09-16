@@ -4,6 +4,7 @@ import os
 import random
 from apscheduler.schedulers.blocking import BlockingScheduler
 from yahooff import League
+import logging
 
 class GroupMeException(Exception):
     pass
@@ -69,10 +70,10 @@ def pranks_week(league):
         #Iterate through the first team's scores until you reach a week with 0 points scored
         for o in first_team.scores:
             if o == 0:
-                '''
+
                 if count != 1:
                      count = count - 1
-                '''
+
                 break
             else:
                 count = count + 1
@@ -391,7 +392,10 @@ if __name__ == '__main__':
 
     sched = BlockingScheduler(job_defaults={'misfire_grace_time': 15*60})
 
-    #power rankings:                     tuesday evening at 6:30pm.
+    logging.basicConfig()
+    logging.getLogger('apscheduler').setLevel(logging.DEBUG)
+
+    #power rankings:                     tuesday evening at 11:30 am.
     #matchups:                           thursday evening at 7:30pm.
     #close scores (within 15.99 points): monday evening at 6:30pm.
     #trophies:                           tuesday morning at 7:30am.
@@ -410,11 +414,11 @@ if __name__ == '__main__':
     sched.add_job(bot_main, 'cron', ['get_trophies'], id='trophies',
         day_of_week='tue', hour=10, minute=00, start_date=ff_start_date, end_date=ff_end_date,
         timezone=myTimezone, replace_existing=True)
-    sched.add_job(bot_main, 'cron', ['get_scoreboard_short'], id='scoreboard1',
+    sched.add_job(bot_main, 'cron', ['get_scoreboard'], id='scoreboard1',
         day_of_week='fri,mon,tue', hour=9, minute=45, start_date=ff_start_date, end_date=ff_end_date,
         timezone=myTimezone, replace_existing=True)
-    sched.add_job(bot_main, 'cron', ['get_scoreboard_short'], id='scoreboard2',
-        day_of_week='sun', hour='16,20', start_date=ff_start_date, end_date=ff_end_date,
+    sched.add_job(bot_main, 'cron', ['get_scoreboard'], id='scoreboard2',
+        day_of_week='sun', hour='13,16,20', minute=00, start_date=ff_start_date, end_date=ff_end_date,
         timezone=myTimezone, replace_existing=True)
 
     sched.start()

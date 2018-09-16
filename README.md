@@ -1,14 +1,14 @@
-Shoutout to /u/rbart65 on reddit and rbarton65 on github for creating the original version of the chatbot and the ESPN FF API
-Further shoutouts to dtcarls for building the GroupMe bot, and to uberfastman for building fantasy-football-metrics, which helped lay the groundwork for this.
+Shoutout to /u/rbart65 on reddit and rbarton65 on github for creating the original version of the chatbot and the ESPN FF API.
 
-This is a major work in progress, but it works as-is. YMMV. I'm a Python newbie, so very open to suggestions on improving things.
+Further shoutouts to **dtcarls** for building the GroupMe bot, and to **uberfastman** for building fantasy-football-metrics, which helped lay the groundwork for this.
+
+This is a major work in progress, but it works as-is. YMMV. I'm a Python newbie, so very open to suggestions on improving things. 
 
 I have not tested the Docker stuff, and have not tested Slack, though it should be close to working as-is. 
 
-For now, I only know that this works in a Python 3 virtualenv. To make it work, register your app with Yahoo and add the consumer key and secret to authentication/private.txt (see the sample). Next, set up your virtualenv, and run 'python first_time_token.py' (this is only necessary the first time, to get your OAuth tokens). Finally, set your league environment variables ('BOT_ID', 'LEAGUE_ID', 'YEAR') and execute 'python ff_bot.py'.
+For now, I only know that this works in a Python 3 virtualenv. To make it work, register your app with Yahoo and add the consumer key and secret to authentication/private.txt (see the sample). Next, set up your virtualenv, and run 'python first_time_token.py' (this is only necessary the first time, to get your OAuth tokens). Finally, set your league environment variables ('BOT_ID', 'LEAGUE_ID', 'YEAR') and execute 'python ff_bot.py'. I plan to streamline this eventually.
 
-To get the callback bot working, make sure you have gunicorn installed (pip install gunicorn) and execute 'gunicorn -w 4 callbackbot:app -b <server>:<port>
-'
+To get the callback bot working, make sure you have gunicorn installed (pip install gunicorn) and execute 'gunicorn -w 4 callbackbot:app -b [server]:[port]'.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
